@@ -1,0 +1,100 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  background: white;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .welcome-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-field {
+  width: 100%;
+
+  ::ng-deep .mat-form-field-outline {
+    border-radius: 8px;
+  }
+}
+
+.icon-color {
+  color: #666;
+}
+
+.login-button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  height: 48px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+
+  &:disabled {
+    opacity: 0.7;
+  }
+
+  .spinner {
+    margin: 0 auto;
+  }
+}
+
+.footer-section {
+  text-align: center;
+  margin-top: 2rem;
+  color: #666;
+
+  .register-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+   mat-form-field.mat-form-field-appearance-outline {
+     .mat-form-field-wrapper {
+       margin: 0;
+     }
+
+     .mat-form-field-outline {
+       background: #f8f9fa;
+     }
+   }
