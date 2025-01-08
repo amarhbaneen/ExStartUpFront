@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
-import {user} from '../common/user';
+import {user} from '../../common/user';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -34,6 +34,8 @@ export class UserDetailsComponent {
   ) {
     this.userData = data;
   }
+
+  //TODO: create function to handle the Create User Page
 
   onCancel() {
     this.dialorRef.close();
