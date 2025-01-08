@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
@@ -21,7 +21,8 @@ import {MatInputModule} from '@angular/material/input';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    MatIcon
+    MatIcon,
+    MatDialogModule
   ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.css'
@@ -29,13 +30,13 @@ import {MatInputModule} from '@angular/material/input';
 export class UserDetailsComponent {
   userData : user;
   constructor(
+
     public dialorRef: MatDialogRef<UserDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: user,
   ) {
     this.userData = data;
   }
 
-  //TODO: create function to handle the Create User Page
 
   onCancel() {
     this.dialorRef.close();

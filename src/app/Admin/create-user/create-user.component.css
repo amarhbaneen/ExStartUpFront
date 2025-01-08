@@ -1,0 +1,16 @@
+.mat-dialog-title {
+  text-align: center;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.password-hint {
+  margin-top: 4px;
+}

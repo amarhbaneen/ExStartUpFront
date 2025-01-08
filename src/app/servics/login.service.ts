@@ -63,4 +63,9 @@ export class LoginService {
     );
   }
 
+  createUser(user: user): Observable<user>{
+    return  this.http.post<user>(`${this.apiUrl}/users`, user,{headers:this.getHeader()}).pipe(
+      catchError(this.handleError)
+    )
+  }
 }
