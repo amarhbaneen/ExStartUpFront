@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { LoginService } from '../servics/login.service';
@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 import { MatInputModule } from '@angular/material/input'; // Add this
 import { MatButtonModule } from '@angular/material/button';
-import {MatProgressSpinner} from '@angular/material/progress-spinner'; // Add this
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {Router} from '@angular/router'; // Add this
 
 @Component({
   selector: 'app-login-page',
@@ -17,17 +18,14 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner'; // Add th
     CommonModule,
     FormsModule,
     MatCardContent,
-    MatCardTitle,
     MatCard,
-    MatCardHeader,
     MatFormField,
     MatFormFieldModule,
-    MatCardFooter,
     MatIcon,
-    MatInputModule, // Add this
+    MatInputModule,
     MatButtonModule,
     MatProgressSpinner,
-    // Add this
+
   ],
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
@@ -40,7 +38,9 @@ export class LoginPageComponent {
 
   constructor(
     private loginService: LoginService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router  // Add this
+
   ) {}
 
 
@@ -55,6 +55,7 @@ export class LoginPageComponent {
         this.snackBar.open('Login successful!', 'Close', {
           duration: 5000,
         });
+        this.router.navigate(['/users']);
       },
       error: (errorMessage) => {
         // The error message from the backend will be shown here

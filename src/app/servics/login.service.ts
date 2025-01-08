@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LoginData } from '../common/loginData';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {catchError, Observable, throwError} from 'rxjs';
+import {user} from '../common/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  private apiUrl = "http://localhost:8080";
   constructor(private http: HttpClient) { }
 
   login(loginData: LoginData) {
@@ -29,4 +31,36 @@ export class LoginService {
       })
     );
   }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Server-side error
+      errorMessage = error.error || 'Server error';
+    }
+    return throwError(() => errorMessage);
+  }
+
+  private  getHeader() : HttpHeaders {
+    const  token = localStorage.getItem('jwt_token');
+    return new  HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });}
+
+
+  getUsers() : Observable<user[]> {
+      return this.http.get<user[]>('http://localhost:8080/users',{headers:this.getHeader()}).pipe(
+        catchError(this.handleError)
+      );
+  }
+  updateUser(user: user): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/${user.id}`, user,{headers:this.getHeader()}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 }

@@ -1,1 +1,49 @@
-<p>user-details works!</p>
+<div class="edit-dialog">
+  <div class="dialog-header">
+    <h2>Edit User Profile</h2>
+    <p class="subtitle">Update your profile information</p>
+  </div>
+
+  <form #editForm="ngForm" class="edit-form">
+    <!-- Username Field -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="userData.username" name="username" required>
+      <mat-icon matSuffix>person_outline</mat-icon>
+    </mat-form-field>
+
+    <!-- First Name Field -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>First Name</mat-label>
+      <input matInput [(ngModel)]="userData.firstName" name="firstName" required>
+      <mat-icon matSuffix>badge</mat-icon>
+    </mat-form-field>
+
+    <!-- Surname Field -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Surname</mat-label>
+      <input matInput [(ngModel)]="userData.surName" name="surName" required>
+      <mat-icon matSuffix>badge</mat-icon>
+    </mat-form-field>
+
+    <!-- Role Field -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Role</mat-label>
+      <mat-select [(ngModel)]="userData.role" name="role" required>
+        <mat-option value="ADMIN">Administrator</mat-option>
+        <mat-option value="USER">Standard User</mat-option>
+      </mat-select>
+      <mat-icon matSuffix>admin_panel_settings</mat-icon>
+    </mat-form-field>
+
+    <!-- Action Buttons -->
+    <div class="button-group">
+      <button mat-stroked-button class="cancel-button" (click)="onCancel()">
+        <mat-icon>close</mat-icon> Cancel
+      </button>
+      <button mat-flat-button color="primary" [disabled]="!editForm.valid" (click)="onSubmit()" class="save-button">
+        <mat-icon>save</mat-icon> Save Changes
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,157 @@
+/* Page Layout */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+  padding: 2rem;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Styling */
+.header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.welcome-text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #5f6c7b;
+  margin: 0;
+}
+
+/* Card and Table Styling */
+.table-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Table Headers */
+.mat-mdc-header-cell {
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* Table Cells */
+.mat-mdc-cell {
+  padding: 1rem 1.5rem;
+  color: #334155;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* User Info Column */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-icon {
+  color: #64748b;
+}
+
+/* Role Styling */
+.role-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.admin-role {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.user-role {
+  background-color: #f0fdf4;
+  color: #16a34a;
+}
+
+.role-icon {
+  font-size: 1.1rem;
+  height: 1.1rem;
+  width: 1.1rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-button {
+  color: #3b82f6;
+}
+
+.delete-button {
+  color: #ef4444;
+}
+
+/* Row Hover Effect */
+.mat-mdc-row:hover {
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+/* Loading State */
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .welcome-text {
+    font-size: 2rem;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    padding: 0.75rem 1rem;
+  }
+}
+/* styles.css or your global styles */
+.success-snackbar {
+  background: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background: #f44336;
+  color: white;
+}
