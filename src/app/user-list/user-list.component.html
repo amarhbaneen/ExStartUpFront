@@ -6,6 +6,8 @@
     </div>
 
     <mat-card class="table-card">
+
+
       <mat-card-content>
         <!-- Loading State -->
         <div *ngIf="isLoading" class="loading-overlay">
@@ -69,6 +71,12 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <div class="button-container">
+          <button mat-flat-button color="primary" class="custom-button">
+            <mat-icon>add</mat-icon>
+            <span>Create User</span>
+          </button>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

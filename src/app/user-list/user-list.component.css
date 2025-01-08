@@ -155,3 +155,29 @@
   background: #f44336;
   color: white;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Centers the button */
+  margin-top: 20px; /* Adds some space above the button */
+}
+
+.custom-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 25px;
+  transition: background-color 0.3s, transform 0.3s;
+  text-transform: capitalize;
+}
+
+.custom-button .mat-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.custom-button:hover {
+  background-color: #2d6cdf; /* Slightly darker shade for hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
