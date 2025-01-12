@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginData } from '../common/loginData';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, Observable, switchMap, throwError} from 'rxjs';
 import {user} from '../common/user';
 
 @Injectable({
@@ -58,7 +58,11 @@ export class AdminService {
       );
   }
   updateUser(user: user): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users/${user.id}`, user,{headers:this.getHeader()}).pipe(
+    return this.http.get<user>(`${this.apiUrl}/users/getByUserName/${user.username}`,{headers: this.getHeader()}).pipe(
+      switchMap(existingUser => {
+        // Now you can access existingUser.id properly
+        return this.http.put(`${this.apiUrl}/users/${existingUser.id}`, user, {headers: this.getHeader()});
+      }),
       catchError(this.handleError)
     );
   }
