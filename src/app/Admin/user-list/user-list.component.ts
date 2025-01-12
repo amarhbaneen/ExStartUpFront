@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {user} from '../../common/user';
-import {LoginService} from '../../servics/login.service';
+import {AdminService} from '../../servics/Admin.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatIcon} from '@angular/material/icon';
@@ -37,7 +37,7 @@ export class UserListComponent implements  OnInit {
   displayedColumns: string[] = ['username', 'firstName', 'surName', "role",'actions'];
   isLoading = false;
   constructor(
-    private LoginService: LoginService,
+    private adminService: AdminService,
     private snackBar: MatSnackBar,
     private dialog :MatDialog,
   ) {
@@ -48,7 +48,7 @@ export class UserListComponent implements  OnInit {
   }
   loadUsers(): void {
     this.isLoading = true;
-    this.LoginService.getUsers().subscribe({
+    this.adminService.getUsers().subscribe({
       next: (users) => {
         console.log('Users loaded:', users);
         this.users = users;
@@ -94,7 +94,7 @@ export class UserListComponent implements  OnInit {
 
   updateUser(updatedUser: user): void {
     this.isLoading = true;
-    this.LoginService.updateUser(updatedUser).subscribe({
+    this.adminService.updateUser(updatedUser).subscribe({
       next: () => {
         this.isLoading = false;
         // Update the user in the table
@@ -121,7 +121,8 @@ export class UserListComponent implements  OnInit {
   }
   createUser(newUser: user): void {
     this.isLoading = true;
-    this.LoginService.createUser(newUser).subscribe({
+    console.log(newUser)
+    this.adminService.createUser(newUser).subscribe({
       next: (createdUser: user) => {
         this.isLoading = false;
         // Add the newly created user to the users list
@@ -140,6 +141,36 @@ export class UserListComponent implements  OnInit {
           panelClass: ['error-snackbar']
         });
       }
+    });
+  }
+
+  deleteUser(id: number): void {
+    const confirmDelete = confirm('Are you sure you want to delete this user?');
+    if (!confirmDelete) {
+      return;
+    }
+
+    this.isLoading = true; // Optionally show a loading state
+    this.adminService.deleteUser(id).subscribe({
+      next: () => {
+        this.isLoading = false;
+
+        // Remove the deleted user from the list
+        this.users = this.users.filter(user => user.id !== id);
+
+        this.snackBar.open('User deleted successfully', 'Close', {
+          duration: 3000,
+          panelClass: ['success-snackbar'],
+        });
+      },
+      error: () => {
+        this.isLoading = false;
+
+        this.snackBar.open('Error deleting user', 'Close', {
+          duration: 5000,
+          panelClass: ['error-snackbar'],
+        });
+      },
     });
   }
 

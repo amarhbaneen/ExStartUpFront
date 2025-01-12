@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {MatDialogActions, MatDialogContent, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
-import {CommonModule, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -30,7 +30,7 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class CreateUserComponent {
   userData={
-    userName:'',
+    username:'',
     firstName:'',
     surName:'',
     password:'',

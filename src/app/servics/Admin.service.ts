@@ -7,7 +7,7 @@ import {user} from '../common/user';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AdminService {
   private apiUrl = "http://localhost:8080";
   constructor(private http: HttpClient) { }
 
@@ -65,6 +65,12 @@ export class LoginService {
 
   createUser(user: user): Observable<user>{
     return  this.http.post<user>(`${this.apiUrl}/users`, user,{headers:this.getHeader()}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  deleteUser(Id:number){
+    return this.http.delete(`${this.apiUrl}/users/delete/${Id}`,{headers:this.getHeader()}).pipe(
       catchError(this.handleError)
     )
   }
