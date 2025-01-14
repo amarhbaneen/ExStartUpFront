@@ -1,0 +1,40 @@
+<div class="user-details-container">
+  <h2>User Details</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="user.username" name="username" required [disabled]="!isEditable"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput [(ngModel)]="user.firstName" name="firstName" required [disabled]="!isEditable"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput [(ngModel)]="user.surName" name="surName" required [disabled]="!isEditable"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <input matInput [(ngModel)]="user.role" name="role" required [disabled]="!isEditable"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="user.password" name="password" [type]="hidePassword ? 'password' : 'text'" required [disabled]="!isEditable"/>
+      <button type="button" mat-icon-button (click)="hidePassword = !hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || !isEditable">Save</button>
+      <button mat-raised-button color="accent" type="button" (click)="toggleEdit()">
+        {{ isEditable ? 'Disable Edit' : 'Enable Edit' }}
+      </button>
+    </div>
+  </form>
+</div>

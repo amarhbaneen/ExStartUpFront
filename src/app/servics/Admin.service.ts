@@ -21,7 +21,7 @@ export class AdminService {
       responseType: 'text'
     }).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.error('Server error:', error);
+        console.error(error);
         // Return the error message from the backend if available
         if (error.error) {
           return throwError(() => error.error);
@@ -67,6 +67,19 @@ export class AdminService {
     );
   }
 
+  updatePassword(user: user, password: string): Observable<any> {
+    // Check if we need to wrap the password in an object or send it directly
+    const passwordData = password; // or just password depending on your API
+
+    return this.http.put(`${this.apiUrl}/users/updatePassword/${user.username}`, passwordData, {
+      headers: this.getHeader(),
+      // Add responseType if your API returns text
+      responseType: 'text'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   createUser(user: user): Observable<user>{
     return  this.http.post<user>(`${this.apiUrl}/users`, user,{headers:this.getHeader()}).pipe(
       catchError(this.handleError)
@@ -77,5 +90,11 @@ export class AdminService {
     return this.http.delete(`${this.apiUrl}/users/delete/${Id}`,{headers:this.getHeader()}).pipe(
       catchError(this.handleError)
     )
+  }
+
+  getUserDetails(username: string): Observable<user> {
+    return this.http.get<user>(`${this.apiUrl}/users/getByUserName/${username}`,{headers:this.getHeader()}).pipe(
+      catchError(this.handleError)
+    );
   }
 }

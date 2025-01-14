@@ -12,13 +12,20 @@
       <mat-icon matSuffix>person_outline</mat-icon>
     </mat-form-field>
 
-    <!-- Password Field -->
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Password</mat-label>
-      <input matInput [(ngModel)]="userData.password" name="password" type="password" required>
+    <!-- Password Change Toggle -->
+    <div class="password-toggle">
+      <button mat-stroked-button type="button" (click)="togglePasswordChange()">
+        <mat-icon>{{ isChangingPassword ? 'lock_open' : 'lock' }}</mat-icon>
+        {{ isChangingPassword ? 'Cancel Password Change' : 'Change Password' }}
+      </button>
+    </div>
+
+    <!-- New Password Field (only shown when changing password) -->
+    <mat-form-field *ngIf="isChangingPassword" appearance="outline" class="form-field">
+      <mat-label>New Password</mat-label>
+      <input matInput [(ngModel)]="newPassword" name="newPassword" type="password" required>
       <mat-icon matSuffix>lock</mat-icon>
     </mat-form-field>
-
 
     <!-- First Name Field -->
     <mat-form-field appearance="outline" class="form-field">

@@ -55,7 +55,7 @@ export class UserListComponent implements  OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading users:', error);
+        console.error(error);
         this.snackBar.open(error, 'Close', {
           duration: 5000,
           panelClass: ['error-snackbar']

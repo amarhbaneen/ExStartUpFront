@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +9,13 @@ import {RouterOutlet} from '@angular/router';
 })
 export class AppComponent {
   title = 'ExStartUpFront';
+
+  constructor(private router: Router) {
+  }
+
+  logout() {
+    localStorage.removeItem('jwt_token');
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

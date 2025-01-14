@@ -10,7 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 import { MatInputModule } from '@angular/material/input'; // Add this
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {Router} from '@angular/router'; // Add this
+import {Router} from '@angular/router';
+import {jwtDecode} from 'jwt-decode';
+
 
 @Component({
   selector: 'app-login-page',
@@ -44,6 +46,7 @@ export class LoginPageComponent {
   ) {}
 
 
+
   onSubmit() {
     if (this.isLoading) return;
 
@@ -52,24 +55,36 @@ export class LoginPageComponent {
       next: (token) => {
         this.JWT_token = token;
         localStorage.setItem('jwt_token', token);
-        this.snackBar.open('Login successful!', 'Close', {
-          duration: 5000,
-        });
-        this.router.navigate(['/users']);
+        console.log(jwtDecode(token));
+        // Decode the token to get the role
+        const decodedToken: any = jwtDecode(token);
+        const role = decodedToken.role;
+
+        if (role === 'ADMIN') {
+          this.router.navigate(['/admin']); // Navigate to admin page
+          this.snackBar.open('You are logged in as a Admin', 'Close', {
+            duration: 5000,
+          });
+        }
+        if(role == 'USER'){
+          this.router.navigate(['/users']); // Navigate to users page
+          this.snackBar.open('You are logged in as a user', 'Close', {
+            duration: 5000,
+          });
+        }
       },
       error: (errorMessage) => {
-        // The error message from the backend will be shown here
         this.snackBar.open(errorMessage, 'Close', {
           duration: 5000,
-          panelClass: ['error-snackbar'] ,// Optional: add custom styling
+          panelClass: ['error-snackbar'],
         });
         this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
       }
-    });}
-
+    });
+  }
 
 
 
