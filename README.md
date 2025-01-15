@@ -48,8 +48,8 @@ Update the backend API URL in `src/environments/environment.ts` for JWT authenti
 - Admins and users access their respective features based on JWT roles.
 
 ## Example Users:
-- **Admin**: Username: `admin`, Password: `admin123`
-- **Regular User**: Username: `john_doe`, Password: `password123`
+- **Admin**: Username: `admin`, Password: `admin`
+- **Regular User**: Username: `amar`, Password: `123456789`
 
 ## Security Considerations:
 - Passwords are securely hashed, never stored in plain text.
