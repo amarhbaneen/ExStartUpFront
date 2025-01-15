@@ -60,5 +60,4 @@ Update the backend API URL in `src/environments/environment.ts` for JWT authenti
 - Extend with RESTful API support for backend integration.
 - Add additional user fields like phone numbers or addresses.
 
-## License:
-MIT License
+
