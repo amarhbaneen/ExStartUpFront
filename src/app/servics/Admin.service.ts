@@ -1,37 +1,40 @@
 import { Injectable } from '@angular/core';
 import { LoginData } from '../common/loginData';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {catchError, Observable, switchMap, throwError} from 'rxjs';
-import {user} from '../common/user';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { User } from '../common/user';  // Importing user model
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = "http://localhost:8080";
-  constructor(private http: HttpClient) { }
+  // Base API URL for backend communication
+  private apiUrl = 'http://localhost:8080';
 
+  constructor(private http: HttpClient) {}
+
+  // Handles login functionality by sending a POST request to the backend
   login(loginData: LoginData) {
     const body = {
       username: loginData.username,
-      password: loginData.password
+      password: loginData.password,
     };
 
     return this.http.post('http://localhost:8080/Auth/login', body, {
-      responseType: 'text'
+      responseType: 'text', // We expect a plain text response
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);
-        // Return the error message from the backend if available
+        // Returns backend error message or a fallback message
         if (error.error) {
           return throwError(() => error.error);
         }
-        // Fallback error message
         return throwError(() => 'Login failed. Please try again.');
       })
     );
   }
 
+  // Helper method to handle API errors
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {
@@ -44,56 +47,60 @@ export class AdminService {
     return throwError(() => errorMessage);
   }
 
-  private  getHeader() : HttpHeaders {
-    const  token = localStorage.getItem('jwt_token');
-    return new  HttpHeaders({
+  // Returns JWT token from localStorage to attach to headers for authorization
+  private getHeader(): HttpHeaders {
+    const token = localStorage.getItem('jwt_token');
+    return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });}
-
-
-  getUsers() : Observable<user[]> {
-      return this.http.get<user[]>('http://localhost:8080/users',{headers:this.getHeader()}).pipe(
-        catchError(this.handleError)
-      );
+      'Authorization': `Bearer ${token}`,
+    });
   }
-  updateUser(user: user): Observable<any> {
-    return this.http.get<user>(`${this.apiUrl}/users/getByUserName/${user.username}`,{headers: this.getHeader()}).pipe(
+
+  // Fetches all users from the backend
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:8080/users', { headers: this.getHeader() }).pipe(
+      catchError(this.handleError)  // Catch any errors and handle them
+    );
+  }
+
+  // Updates a user by ID after fetching user details
+  updateUser(user: User): Observable<any> {
+    return this.http.get<User>(`${this.apiUrl}/users/getByUserName/${user.username}`, { headers: this.getHeader() }).pipe(
       switchMap(existingUser => {
-        // Now you can access existingUser.id properly
-        return this.http.put(`${this.apiUrl}/users/${existingUser.id}`, user, {headers: this.getHeader()});
+        // Use the existing user ID to update the user
+        return this.http.put(`${this.apiUrl}/users/${existingUser.id}`, user, { headers: this.getHeader() });
       }),
       catchError(this.handleError)
     );
   }
 
-  updatePassword(user: user, password: string): Observable<any> {
-    // Check if we need to wrap the password in an object or send it directly
-    const passwordData = password; // or just password depending on your API
-
-    return this.http.put(`${this.apiUrl}/users/updatePassword/${user.username}`, passwordData, {
+  // Updates the password of a user
+  updatePassword(user: User, password: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/updatePassword/${user.username}`, password, {
       headers: this.getHeader(),
-      // Add responseType if your API returns text
-      responseType: 'text'
+      responseType: 'text' // Expect a text response from the backend
     }).pipe(
       catchError(this.handleError)
     );
   }
 
-  createUser(user: user): Observable<user>{
-    return  this.http.post<user>(`${this.apiUrl}/users`, user,{headers:this.getHeader()}).pipe(
+  // Creates a new user in the system
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/users`, user, { headers: this.getHeader() }).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
-  deleteUser(Id:number){
-    return this.http.delete(`${this.apiUrl}/users/delete/${Id}`,{headers:this.getHeader()}).pipe(
+  // Deletes a user by their ID
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/users/delete/${id}`, { headers: this.getHeader() }).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
-  getUserDetails(username: string): Observable<user> {
-    return this.http.get<user>(`${this.apiUrl}/users/getByUserName/${username}`,{headers:this.getHeader()}).pipe(
+  // Fetches the details of a user by their username
+  getUserDetails(username: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/users/getByUserName/${username}`, { headers: this.getHeader() }).pipe(
       catchError(this.handleError)
     );
   }

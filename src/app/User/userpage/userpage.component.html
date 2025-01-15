@@ -1,39 +1,106 @@
-<div class="user-details-container">
-  <h2>User Details</h2>
+<div class="user-details-container mat-elevation-z8 p-6 max-w-lg mx-auto bg-white rounded-lg">
+  <h2 class="text-2xl font-bold mb-4 text-gray-700">User Details</h2>
 
-  <form (ngSubmit)="onSubmit()">
-    <mat-form-field>
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="space-y-4">
+    <mat-form-field appearance="outline" class="w-full">
       <mat-label>Username</mat-label>
-      <input matInput [(ngModel)]="user.username" name="username" required [disabled]="!isEditable"/>
+      <input
+        matInput
+        [(ngModel)]="user.username"
+        name="username"
+        required
+        [readonly]="!isEditable"
+        [class.readonly-field]="!isEditable"
+      />
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>First Name</mat-label>
-      <input matInput [(ngModel)]="user.firstName" name="firstName" required [disabled]="!isEditable"/>
-    </mat-form-field>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="user.firstName"
+          name="firstName"
+          required
+          [readonly]="!isEditable"
+          [class.readonly-field]="!isEditable"
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Last Name</mat-label>
-      <input matInput [(ngModel)]="user.surName" name="surName" required [disabled]="!isEditable"/>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="user.surName"
+          name="surName"
+          required
+          [readonly]="!isEditable"
+          [class.readonly-field]="!isEditable"
+        />
+      </mat-form-field>
+    </div>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
       <mat-label>Role</mat-label>
-      <input matInput [(ngModel)]="user.role" name="role" required [disabled]="!isEditable"/>
+      <input
+        matInput
+        [(ngModel)]="user.role"
+        name="role"
+        readonly
+        class="readonly-field"
+      />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field
+      appearance="outline"
+      class="w-full"
+      *ngIf="isEditable"
+    >
       <mat-label>Password</mat-label>
-      <input matInput [(ngModel)]="user.password" name="password" [type]="hidePassword ? 'password' : 'text'" required [disabled]="!isEditable"/>
-      <button type="button" mat-icon-button (click)="hidePassword = !hidePassword">
-        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input
+        matInput
+        [(ngModel)]="user.password"
+        name="password"
+        [type]="hidePassword ? 'password' : 'text'"
+        required
+        minlength="8"
+        #passwordInput="ngModel"
+        (ngModelChange)="passwordChanged = true"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+      >
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
+      <mat-error *ngIf="passwordInput.errors?.['minlength']">
+        Password must be at least 8 characters long
+      </mat-error>
     </mat-form-field>
 
-    <div class="action-buttons">
-      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || !isEditable">Save</button>
-      <button mat-raised-button color="accent" type="button" (click)="toggleEdit()">
-        {{ isEditable ? 'Disable Edit' : 'Enable Edit' }}
+    <div class="flex justify-end gap-4">
+      <button
+        mat-stroked-button
+        color="accent"
+        type="button"
+        (click)="toggleEdit()"
+      >
+        {{ isEditable ? 'Cancel' : 'Edit' }}
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="isLoading || !isEditable || !userForm.form.valid"
+      >
+        <mat-spinner
+          *ngIf="isLoading"
+          diameter="18"
+          class="mr-2"
+        ></mat-spinner>
+        Save
       </button>
     </div>
   </form>
