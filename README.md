@@ -1,59 +1,64 @@
-# ExStartUpFront
+# User Management Angular Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## Features:
+- **User Creation & Management**: Admins can create, edit, and delete users, with flexible role management (Admin, User).
+- **Role-Based Access**: Admins can manage users; regular users can only edit their own profiles.
+- **Password Management**: Admins can reset passwords, while users can change their own.
+- **Responsive UI**: Angular and Angular Material ensure a responsive design.
+- **JWT Authentication**: Secure authentication with role-based access using JWT.
 
-## Development server
+## Technologies Used:
+- Angular 14+
+- Angular Material
+- JWT Authentication
+- RxJS (Reactive programming)
 
-To start a local development server, run:
+## Setup:
 
-```bash
+# Prerequisites:
+- Node.js and npm
+- Angular CLI globally installed (`npm install -g @angular/cli`)
+
+# Installation:
+
+# Clone the Repository:
+git clone <repository-url>
+cd <project-directory>
+
+# Install Dependencies:
+npm install
+
+# Run the Application:
 ng serve
-```
+# Access it via http://localhost:4200
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Configuration:
+Update the backend API URL in `src/environments/environment.ts` for JWT authentication.
 
-## Code scaffolding
+## Components:
+- **LoginPageComponent**: Handles user authentication and stores JWT in `localStorage`.
+- **UserListComponent**: Admins can manage users, and regular users can only edit their profiles.
+- **CreateUserComponent**: Admins create new users and assign roles.
+- **UserDetailsComponent**: Admins or users can edit and reset passwords securely.
+- **UserPageComponent**: Users can view and update their profile details.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Authentication Flow:
+- Login with username and password.
+- On success, JWT token is stored in localStorage.
+- Admins and users access their respective features based on JWT roles.
 
-```bash
-ng generate component component-name
-```
+## Example Users:
+- **Admin**: Username: `admin`, Password: `admin123`
+- **Regular User**: Username: `john_doe`, Password: `password123`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Security Considerations:
+- Passwords are securely hashed, never stored in plain text.
+- Role-based access control using JWT tokens for secure access.
 
-```bash
-ng generate --help
-```
+## Customization:
+- Add more user roles (e.g., Manager, Supervisor).
+- Extend with RESTful API support for backend integration.
+- Add additional user fields like phone numbers or addresses.
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License:
+MIT License
