@@ -52,7 +52,6 @@ Update the backend API URL in `src/environments/environment.ts` for JWT authenti
 - **Regular User**: Username: `amar`, Password: `123456789`
 
 ## Security Considerations:
-- Passwords are securely hashed, never stored in plain text.
 - Role-based access control using JWT tokens for secure access.
 
 ## Customization:
