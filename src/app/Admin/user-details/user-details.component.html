@@ -14,7 +14,7 @@
 
     <!-- Password Change Toggle -->
     <div class="password-toggle">
-      <button mat-stroked-button type="button" (click)="togglePasswordChange()">
+      <button (click)="togglePasswordChange()" mat-flat-button type="button">
         <mat-icon>{{ isChangingPassword ? 'lock_open' : 'lock' }}</mat-icon>
         {{ isChangingPassword ? 'Cancel Password Change' : 'Change Password' }}
       </button>
@@ -53,7 +53,7 @@
 
     <!-- Action Buttons -->
     <div class="button-group">
-      <button mat-stroked-button class="cancel-button" (click)="onCancel()">
+      <button (click)="onCancel()" class="cancel-button" mat-flat-button>
         <mat-icon>close</mat-icon> Cancel
       </button>
       <button mat-flat-button color="primary" [disabled]="!editForm.valid" (click)="onSubmit()" class="save-button">

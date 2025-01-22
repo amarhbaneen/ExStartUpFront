@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { LoginData } from '../common/loginData';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { User } from '../common/user';  // Importing user model
+import {Injectable} from '@angular/core';
+import {LoginData} from '../common/loginData';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {catchError, Observable, switchMap, throwError} from 'rxjs';
+import {User} from '../common/user'; // Importing user model
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +65,7 @@ export class AdminService {
 
   // Updates a user by ID after fetching user details
   updateUser(user: User): Observable<any> {
-    return this.http.get<User>(`${this.apiUrl}/users/getByUserName/${user.username}`, { headers: this.getHeader() }).pipe(
+    return this.http.get<User>(`${this.apiUrl}/users/${user.id}`, {headers: this.getHeader()}).pipe(
       switchMap(existingUser => {
         // Use the existing user ID to update the user
         return this.http.put(`${this.apiUrl}/users/${existingUser.id}`, user, { headers: this.getHeader() });

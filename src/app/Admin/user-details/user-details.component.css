@@ -43,6 +43,7 @@
 
 .cancel-button {
   color: #666;
+  background-color: transparent;
 }
 
 .save-button {
