@@ -30,6 +30,7 @@ npm install
 
 # Run the Application:
 ng serve
+#
 Access it via http://localhost:4200
 
 ## Configuration:
