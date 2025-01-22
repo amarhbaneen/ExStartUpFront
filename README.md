@@ -30,7 +30,7 @@ npm install
 
 # Run the Application:
 ng serve
-# Access it via http://localhost:4200
+Access it via http://localhost:4200
 
 ## Configuration:
 Update the backend API URL in `src/environments/environment.ts` for JWT authentication.
